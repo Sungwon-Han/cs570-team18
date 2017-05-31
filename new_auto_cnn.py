@@ -52,10 +52,10 @@ for i in range(len(valid_indices)):
     X_valid_y[i, int(tempname.split("_")[0]) - 1] = 1
 
 Train = np.concatenate((np.array(X_train), np.array(X_train_y)), axis = 1)
-temp = Train
-for i in range(50):
-    Train = np.concatenate((Train, temp), axis=0)
-
+#temp = Train
+#for i in range(50):
+#    Train = np.concatenate((Train, temp), axis=0)
+#Train = np.concatenate( [Train] * 20, axis = 0)
 np.random.shuffle(Train)
 
 X_train = Train[:, 0:8277]
@@ -244,43 +244,43 @@ correct_prediction = tf.equal(tf.argmax(Y_conv, 1), tf.argmax(Y_, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 
-training_epochs = 300
+training_epochs = 100
 
 
 # Initializing the variables
 init = tf.global_variables_initializer()
 
 # Launch the graph
-with tf.Session() as sess:
-    #saver = tf.train.Saver()
-    #print(sess.run(decoder_op, feed_dict={X:X_train}))
-    loader1 = tf.train.Saver(var_list=weights)
-    loader2 = tf.train.Saver(var_list=biases)
-    loader3 = tf.train.Saver(var_list=CNN_variable1)
-    loader4 = tf.train.Saver(var_list=CNN_variable2)
-    sess.run(init)
-   # loader1.restore(sess, "./Denoising_weights.ckpt")
-   # loader2.restore(sess, "./Denoising_biases.ckpt")
-    loader3.restore(sess, "./CNN_model_variable1.ckpt")
-    loader4.restore(sess, "./CNN_model_variable2.ckpt")
+sess = tf.Session()
+#saver = tf.train.Saver()
+#print(sess.run(decoder_op, feed_dict={X:X_train}))
+loader1 = tf.train.Saver(var_list=weights)
+loader2 = tf.train.Saver(var_list=biases)
+loader3 = tf.train.Saver(var_list=CNN_variable1)
+loader4 = tf.train.Saver(var_list=CNN_variable2)
+sess.run(init)
+loader1.restore(sess, "./Denoising_weights_more.ckpt")
+loader2.restore(sess, "./Denoising_biases_more.ckpt")
+loader3.restore(sess, "./CNN_model_variable1.ckpt")
+loader4.restore(sess, "./CNN_model_variable2.ckpt")
 
 
-   # c= sess.run(accuracy, feed_dict={X: X_test, Y_: X_test_y, size:len(X_test), keep_prob:1.0})
-   # print("Test accuracy=", "{:.9f}".format(c))
+# c= sess.run(accuracy, feed_dict={X: X_test, Y_: X_test_y, size:len(X_test), keep_prob:1.0})
+# print("Test accuracy=", "{:.9f}".format(c))
 
 
-    for epoch in range(training_epochs):
-        total_batch = int(n_samples2 / batch_size)
-        for i in range(total_batch):
-	    #batch_xs, batch_ys = get_random_block_from_data(X_train, X_train_y, batch_size, autoencoder)
-	    batch_xs, batch_ys = get_random_block_only_cnn(X_train, X_train_y, batch_size)
-	    sess.run(train_step, feed_dict={X:batch_xs, Y_:batch_ys, size:batch_size, keep_prob:0.5})
+for epoch in range(training_epochs):
+    total_batch = int(n_samples2 / batch_size)
+    for i in range(total_batch):
+        #batch_xs, batch_ys = get_random_block_from_data(X_train, X_train_y, batch_size, autoencoder)
+        batch_xs, batch_ys = get_random_block_only_cnn(X_train, X_train_y, batch_size)
+        sess.run(train_step, feed_dict={X:batch_xs, Y_:batch_ys, size:batch_size, keep_prob:0.5})
 
-        if epoch % 1 == 0:
-	    #valid_accuracy = accuracy.eval(feed_dict = {X:autoencoder.reconstruct(X_train), Y_:X_train_y, keep_prob:1.0})
-	    valid_accuracy = sess.run(accuracy, feed_dict = {X:X_validation, Y_:X_valid_y, size:len(X_validation), keep_prob:1.0})
-	    print("step %d, validation accuracy %g" %(epoch, valid_accuracy))
+    if epoch % 1 == 0:
+        #valid_accuracy = accuracy.eval(feed_dict = {X:autoencoder.reconstruct(X_train), Y_:X_train_y, keep_prob:1.0})
+        valid_accuracy = sess.run(accuracy, feed_dict = {X:X_validation, Y_:X_valid_y, size:len(X_validation), keep_prob:1.0})
+        print("step %d, validation accuracy %g" %(epoch, valid_accuracy))
 
-    c= sess.run(accuracy, feed_dict={X: X_test, Y_: X_test_y, size:len(X_test), keep_prob:1.0})
-    print("Test accuracy=", "{:.9f}".format(c))
+c= sess.run(accuracy, feed_dict={X: X_test, Y_: X_test_y, size:len(X_test), keep_prob:1.0})
+print("Test accuracy=", "{:.9f}".format(c))
 
