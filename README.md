@@ -6,23 +6,24 @@ cs570 finalproject
 
 1. <del> Train and test Autoencoder </del>
 2. <del> Train and test CNN </del>
-3. Test Auto + CNN model for clean data
-4. Test Auto + CNN model for natural noise data
+3. <del> Test Auto + CNN model for clean data </del>
+4. <del> Test Auto + CNN model for natural noise data </del>
 5. <del> Generate Adverserial example for CNN </del>
-6. Test Auto + CNN model for Adverserial example
+6. <del> Test Auto + CNN model for Adverserial example </del>
 
 
 
 File Usage
 ==========
 ## convnet.py
-> edit
-
-## new_autoencoder.py
-> edit
+> made by Sungwon Han
+    Training CNN
 
 ## new_auto_cnn.py
-> edit
+> made by S & Y
+    Test Auto encoder + CNN model: DA CNN or AGDA CNN
+    
+    
 
 ## cnn_Adverserial.py
 > made by YongsuBaek
@@ -43,7 +44,7 @@ A few lines for generating and testing Adverserial inputs added to __convnet.py_
       draw(img_array, filename)
 
 input
- 1. img_array : (10980,) array of image
+ 1. img_array : (8277,) array of image
  2. filename : file path + file name to save the image
   
 return: None
@@ -53,10 +54,10 @@ return: None
 
         python draw.py [path/file_name]
 
-   will save the given (10980,) text file to result_img directory as same filename. Ex) test.txt -> test.png
+   will save the given (8277,) text file to result_img directory as same filename. Ex) test.txt -> test.png
 
  2. with two arguments:
 
         python draw.py [path/file_name] [path_to_destination/file_name]
 
-   will save the given (10980,) text file to [path_to_destination/file_name] with latter filename.
+   will save the given (8277,) text file to [path_to_destination/file_name] with latter filename.
