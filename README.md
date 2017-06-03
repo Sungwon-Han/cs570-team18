@@ -17,11 +17,13 @@ File Usage
 ==========
 ## convnet.py
 > made by Sungwon Han
-    Training CNN
+
+   Training CNN
 
 ## new_auto_cnn.py
 > made by S & Y
-    Test Auto encoder + CNN model: DA CNN or AGDA CNN
+
+   Test Auto encoder + CNN model: DA CNN or AGDA CNN
     
     
 
