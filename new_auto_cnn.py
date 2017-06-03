@@ -5,7 +5,7 @@ import os.path
 import sklearn.preprocessing as prep
 from tensorflow.python.ops import math_ops
 from tensorflow.python.ops import array_ops
-
+from cleverhans.attacks_tf import fgm
 
 # Data Part
 #-------------------------------------------------------------------------
@@ -53,9 +53,9 @@ for i in range(len(valid_indices)):
 
 Train = np.concatenate((np.array(X_train), np.array(X_train_y)), axis = 1)
 #temp = Train
-#for i in range(50):
+#for i in range(20):
 #    Train = np.concatenate((Train, temp), axis=0)
-#Train = np.concatenate( [Train] * 20, axis = 0)
+
 np.random.shuffle(Train)
 
 X_train = Train[:, 0:8277]
@@ -91,13 +91,13 @@ for i in range(n_samples):
 #preprocessor = prep.StandardScaler().fit(X_test)
 #X_test = preprocessor.transform(X_test)
 
-Scale = 0.01
+Scale = 0.00
 batch_size = 128
 alpha = 4e-4
 
 # Network Parameters
-n_hidden_1 = 5000 # 1st layer num features
-n_hidden_2 = 2500 # 2nd layer num features
+n_hidden_1 = 1000 # 1st layer num features
+n_hidden_2 = 500 # 2nd layer num features
 n_input = 8277 # (img shape: 267*31)
 
 #-------------------------------------------------------------------------
@@ -221,7 +221,6 @@ noise = Scale * tf.random_normal(shape = tf.shape(X))
 
 encoder_op = encoder(X+noise)
 decoder_op = decoder(encoder_op)
-#decoder_op = X
 
 mean, var = tf.nn.moments(decoder_op, axes = [0], keep_dims = True)
 std = tf.sqrt(var)
@@ -236,15 +235,39 @@ def _safe_div(numerator, denominator, name="value"):
 
 scal_x = _safe_div((decoder_op - mean), tf.tile(std, [size, 1]))
 Y_conv = cnn(scal_x, keep_prob, 2, 2, 10, 20, 50, 25)
-#Y_conv = cnn(X, keep_prob, 2, 2, 10, 20, 50, 25)
 
+# Adversarial input 
+mean, var = tf.nn.moments(X, axes = [0], keep_dims = True)
+std = tf.sqrt(var)
+X_stdscale = _safe_div((X - mean), tf.tile(std, [size, 1]))
+Y_conv_for_Ad = cnn(X_stdscale, keep_prob, 2, 2, 10, 20, 50, 25)
+
+adv_x = fgm(X, Y_conv_for_Ad, y=None, eps=0.01, ord=np.inf, clip_min=None, clip_max=None)
+noise = Scale * tf.random_normal(shape = tf.shape(X))
+
+encoder_adv = encoder(adv_x + noise)
+decoder_adv = decoder(encoder_adv)
+
+mean_adv, var_adv = tf.nn.moments(decoder_adv, axes = [0], keep_dims = True)
+std_adv = tf.sqrt(var_adv)
+
+scal_x_adv = _safe_div((decoder_adv - mean_adv), tf.tile(std_adv, [size, 1]))
+Y_adv = cnn(scal_x_adv, keep_prob, 2, 2, 10, 20, 50, 25)
+
+#Train
 cross_entropy = -tf.reduce_sum(Y_*tf.log(Y_conv))
 train_step = tf.train.AdamOptimizer(alpha).minimize(cross_entropy)
+
 correct_prediction = tf.equal(tf.argmax(Y_conv, 1), tf.argmax(Y_, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 
-training_epochs = 100
+Ad_correct_prediction = tf.equal(tf.argmax(Y_adv, 1), tf.argmax(Y_, 1))
+Ad_accuracy = tf.reduce_mean(tf.cast(Ad_correct_prediction, tf.float32))
+
+Ad_conf_mat = tf.contrib.metrics.confusion_matrix( tf.argmax(Y_, axis=1), tf.argmax(Y_adv, axis=1) )
+
+training_epochs = 140
 
 
 # Initializing the variables
@@ -252,8 +275,6 @@ init = tf.global_variables_initializer()
 
 # Launch the graph
 sess = tf.Session()
-#saver = tf.train.Saver()
-#print(sess.run(decoder_op, feed_dict={X:X_train}))
 loader1 = tf.train.Saver(var_list=weights)
 loader2 = tf.train.Saver(var_list=biases)
 loader3 = tf.train.Saver(var_list=CNN_variable1)
@@ -265,22 +286,22 @@ loader3.restore(sess, "./CNN_model_variable1.ckpt")
 loader4.restore(sess, "./CNN_model_variable2.ckpt")
 
 
-# c= sess.run(accuracy, feed_dict={X: X_test, Y_: X_test_y, size:len(X_test), keep_prob:1.0})
-# print("Test accuracy=", "{:.9f}".format(c))
-
-
 for epoch in range(training_epochs):
     total_batch = int(n_samples2 / batch_size)
     for i in range(total_batch):
-        #batch_xs, batch_ys = get_random_block_from_data(X_train, X_train_y, batch_size, autoencoder)
-        batch_xs, batch_ys = get_random_block_only_cnn(X_train, X_train_y, batch_size)
-        sess.run(train_step, feed_dict={X:batch_xs, Y_:batch_ys, size:batch_size, keep_prob:0.5})
-
+	#batch_xs, batch_ys = get_random_block_from_data(X_train, X_train_y, batch_size, autoencoder)
+	batch_xs, batch_ys = get_random_block_only_cnn(X_train, X_train_y, batch_size)
+	sess.run(train_step, feed_dict={X:batch_xs, Y_:batch_ys, size:batch_size, keep_prob:0.5})
     if epoch % 1 == 0:
-        #valid_accuracy = accuracy.eval(feed_dict = {X:autoencoder.reconstruct(X_train), Y_:X_train_y, keep_prob:1.0})
-        valid_accuracy = sess.run(accuracy, feed_dict = {X:X_validation, Y_:X_valid_y, size:len(X_validation), keep_prob:1.0})
-        print("step %d, validation accuracy %g" %(epoch, valid_accuracy))
+	#valid_accuracy = accuracy.eval(feed_dict = {X:autoencoder.reconstruct(X_train), Y_:X_train_y, keep_prob:1.0})
+	valid_accuracy = sess.run(accuracy, feed_dict = {X:X_validation, Y_:X_valid_y, size:len(X_validation), keep_prob:1.0})
+	print("step %d, validation accuracy %g" %(epoch, valid_accuracy))
 
-c= sess.run(accuracy, feed_dict={X: X_test, Y_: X_test_y, size:len(X_test), keep_prob:1.0})
-print("Test accuracy=", "{:.9f}".format(c))
+        c, Adc= sess.run([accuracy, Ad_accuracy], feed_dict={X: X_test, Y_: X_test_y, size:len(X_test), keep_prob:1.0})
+    	print("Test accuracy=", "{:.9f}".format(c))
+	print("Adv Test accuracy=", "{:.9f}".format(Adc))
+print(sess.run(Ad_conf_mat, feed_dict={X: X_test, Y_: X_test_y, size:len(X_test), keep_prob:1.0} ))
+
+
+
 

@@ -8,11 +8,10 @@ from scipy.stats import bernoulli
 
 # Parameters
 alpha = 0.001
-training_epochs = 30
+training_epochs = 100
 batch_size = 128
 display_step = 1
-Scale = 0.01
-zero_p = 0.5
+Scale = 0
 
 # Network Parameters
 n_hidden_1 = 1000 # 1st layer num features
@@ -63,12 +62,7 @@ def standard_scale(X_train, X_test):
     X_test = preprocessor.transform(X_test)
     return X_train, X_test
 
-#X_train, X_validation = standard_scale(X_train, X_validation)
-#temp = X_train
-#for i in range(50):
-#    X_train = np.concatenate((X_train, temp), axis=0)
-
-X_train = np.concatenate( [X_train] * 50, axis=0 )
+#X_train = np.concatenate( [X_train] * 50, axis=0 )
 np.random.shuffle(X_train)
 
 def get_random_block_from_data(data, batch_size):
@@ -95,54 +89,32 @@ biases = {
 # Building the encoder
 def encoder(x):
     # Encoder Hidden layer with sigmoid activation #1
-    layer_1 = tf.nn.softplus(tf.add(tf.matmul(x, weights['encoder_h1']),
-                                   		 biases['encoder_b1']))
+    layer_1 = tf.nn.softplus(tf.add(tf.matmul(x, weights['encoder_h1']), biases['encoder_b1']))
+    layer_1_drop = tf.nn.dropout(layer_1, 0.5)
 
     # Decoder Hidden layer with sigmoid activation #2
-    layer_2 = tf.nn.softplus(tf.add(tf.matmul(layer_1, weights['encoder_h2']),
-                                   		       biases['encoder_b2']))
-        # Encoder Hidden layer with sigmoid activation #1
-    #layer_1 = tf.nn.softplus(tf.matmul(x, weights['encoder_h1']))
-#    # Decoder Hidden layer with sigmoid activation #2
-    #layer_2 = tf.nn.softplus(tf.matmul(layer_1, weights['encoder_h2']))
-
-    return layer_2
+    layer_2 = tf.nn.softplus(tf.add(tf.matmul(layer_1_drop, weights['encoder_h2']), biases['encoder_b2']))
+    layer_2_drop = tf.nn.dropout(layer_2, 0.5)
+    return layer_2_drop
 
 
 # Building the decoder
 def decoder(x):
     # Encoder Hidden layer with sigmoid activation #1
-    layer_1 = tf.add(tf.matmul(x, weights['decoder_h1']),
-                                  biases['decoder_b1'])
-
-   # layer_1_drop = tf.nn.dropout(layer_1, 0.5)
-   # Decoder Hidden layer with sigmoid activation #2
-   # layer_2 = tf.add(tf.matmul(layer_1, weights['decoder_h2']),
-   #                            		     biases['decoder_b2'])
-    # Encoder Hidden layer with sigmoid activation #1
-   # layer_1 = tf.nn.softplus(tf.matmul(x, weights['decoder_h1']))
-#    # Decoder Hidden layer with sigmoid activation #2
-#    layer_2 = tf.matmul(layer_1, weights['decoder_h2'])
-    layer_2 = tf.nn.sigmoid(tf.add(tf.matmul(layer_1, weights['decoder_h2']),
-                           			      biases['decoder_b2']))
+    layer_1 = tf.add(tf.matmul(x, weights['decoder_h1']), biases['decoder_b1'])
+    layer_1_drop = tf.nn.dropout(layer_1, 0.5)
+    layer_2 = tf.nn.sigmoid(tf.add(tf.matmul(layer_1_drop, weights['decoder_h2']), biases['decoder_b2']))
     return layer_2
 
 # Construct model
 X = tf.placeholder("float", [None, n_input])
-zerolist = tf.placeholder("float", [None, n_input])
-X_removed = X * zerolist
-X_concat = tf.concat((X, X_removed), axis=0)
-noise = Scale * tf.random_normal(shape = tf.shape(X_concat))
-X_noise = X_concat + noise
-X_clip = tf.clip_by_value(X_noise, 0, 1)
 
-encoder_op = encoder(X_clip)
+encoder_op = encoder(X)
 decoder_op = decoder(encoder_op)
 
 # Prediction
 y_pred = decoder_op
-# Targets (Labels) are the input data.
-y_true = tf.concat((X, X), axis=0)
+y_true = X
 
 # Define loss and optimizer, minimize the squared error
 cost = tf.reduce_mean(tf.pow(y_true - y_pred, 2))
@@ -158,31 +130,23 @@ saver1 = tf.train.Saver(var_list = weights)
 saver2 = tf.train.Saver(var_list = biases)
 sess.run(init)
 
-total_batch = int(n_samples / batch_size * 50)
-zero_list = bernoulli.rvs(1-zero_p, size = n_input * len(X_validation))
-zero_list = np.reshape(zero_list, [-1, n_input])
-valcost = sess.run(cost, feed_dict={X: X_validation, zerolist:zero_list})
-print("Epoch:", '0000', "cost=", "{:.9f}".format(valcost))
+total_batch = int(n_samples / batch_size)
+
 # Training cycle
 print(X_validation)
 for epoch in range(training_epochs):
     # Loop over all batches
     for i in range(total_batch):
-	zero_list = bernoulli.rvs(1-zero_p, size = n_input * batch_size)
-	zero_list = np.reshape(zero_list, [-1, n_input])
         batch_xs = get_random_block_from_data(X_train, batch_size)
-        _, traincost = sess.run([optimizer, cost], feed_dict={X: batch_xs, zerolist: zero_list})
+        _, traincost = sess.run([optimizer, cost], feed_dict={X: batch_xs})
 
     # Display logs per epoch step
     if epoch % display_step == 0:
-	zero_list = bernoulli.rvs(1-zero_p, size = n_input * len(X_validation))
-	zero_list = np.reshape(zero_list, [-1, n_input])
-	valcost = sess.run(cost, feed_dict={X: X_validation, zerolist:zero_list})
+	valcost, temp = sess.run([cost, decoder_op], feed_dict={X: X_validation})
         print("Epoch:", '%04d' % (epoch+1),
                   "valcost=", "{:.9f}".format(valcost), "traincost=", "{:.9f}".format(traincost))
+    	print(temp)
 
-    	print(sess.run(decoder_op, feed_dict={X: X_validation, zerolist:zero_list}))
-
-save_path = saver1.save(sess, "Denoising_weights_more.ckpt")
-save_path2 = saver2.save(sess, "Denoising_biases_more.ckpt")
+save_path = saver1.save(sess, "just_autoencoder_w.ckpt")
+save_path2 = saver2.save(sess, "just_autoencoder_b.ckpt")
 

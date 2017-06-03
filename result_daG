@@ -1,0 +1,43 @@
+step 0, validation accuracy 0.46304
+('Test accuracy=', '0.341939986')
+step 1, validation accuracy 0.589958
+('Test accuracy=', '0.424982548')
+step 2, validation accuracy 0.647838
+('Test accuracy=', '0.484298646')
+step 3, validation accuracy 0.706416
+('Test accuracy=', '0.545708299')
+step 4, validation accuracy 0.732915
+('Test accuracy=', '0.584787130')
+step 5, validation accuracy 0.760112
+('Test accuracy=', '0.621074617')
+step 6, validation accuracy 0.767782
+('Test accuracy=', '0.652477324')
+step 7, validation accuracy 0.803347
+('Test accuracy=', '0.681786537')
+step 8, validation accuracy 0.797768
+('Test accuracy=', '0.704117298')
+step 9, validation accuracy 0.820781
+('Test accuracy=', '0.714584768')
+step 10, validation accuracy 0.819386
+('Test accuracy=', '0.723656654')
+step 11, validation accuracy 0.852859
+('Test accuracy=', '0.743196070')
+step 12, validation accuracy 0.827057
+('Test accuracy=', '0.744591713')
+step 13, validation accuracy 0.865411
+('Test accuracy=', '0.775994420')
+step 14, validation accuracy 0.852162
+('Test accuracy=', '0.777390063')
+step 15, validation accuracy 0.871688
+('Test accuracy=', '0.793440282')
+step 16, validation accuracy 0.867503
+('Test accuracy=', '0.783670664')
+step 17, validation accuracy 0.843096
+('Test accuracy=', '0.794138134')
+step 18, validation accuracy 0.882148
+('Test accuracy=', '0.794836044')
+step 19, validation accuracy 0.891911
+('Test accuracy=', '0.812281847')
+step 20, validation accuracy 0.877964
+('Test accuracy=', '0.818562448')
+

@@ -1,0 +1,301 @@
+step 0, validation accuracy 0.29219
+('Test accuracy=', '0.333565950')
+('Adv Test accuracy=', '0.327983260')
+step 1, validation accuracy 0.563459
+('Test accuracy=', '0.532449424')
+('Adv Test accuracy=', '0.311235160')
+step 2, validation accuracy 0.711994
+('Test accuracy=', '0.638520598')
+('Adv Test accuracy=', '0.332170278')
+step 3, validation accuracy 0.793584
+('Test accuracy=', '0.691556156')
+('Adv Test accuracy=', '0.297976285')
+step 4, validation accuracy 0.829847
+('Test accuracy=', '0.745987415')
+('Adv Test accuracy=', '0.254710406')
+step 5, validation accuracy 0.882148
+('Test accuracy=', '0.761339843')
+('Adv Test accuracy=', '0.224005580')
+step 6, validation accuracy 0.882148
+('Test accuracy=', '0.774598718')
+('Adv Test accuracy=', '0.198185623')
+step 7, validation accuracy 0.894003
+('Test accuracy=', '0.780879259')
+('Adv Test accuracy=', '0.211444527')
+step 8, validation accuracy 0.904463
+('Test accuracy=', '0.798325181')
+('Adv Test accuracy=', '0.198185623')
+step 9, validation accuracy 0.902371
+('Test accuracy=', '0.819958150')
+('Adv Test accuracy=', '0.221912071')
+step 10, validation accuracy 0.932357
+('Test accuracy=', '0.812281907')
+('Adv Test accuracy=', '0.198185623')
+step 11, validation accuracy 0.928173
+('Test accuracy=', '0.816468954')
+('Adv Test accuracy=', '0.208653182')
+step 12, validation accuracy 0.933054
+('Test accuracy=', '0.833217025')
+('Adv Test accuracy=', '0.214933708')
+step 13, validation accuracy 0.938633
+('Test accuracy=', '0.831821382')
+('Adv Test accuracy=', '0.213538036')
+step 14, validation accuracy 0.927476
+('Test accuracy=', '0.828332186')
+('Adv Test accuracy=', '0.205861822')
+step 15, validation accuracy 0.953278
+('Test accuracy=', '0.836008370')
+('Adv Test accuracy=', '0.203768313')
+step 16, validation accuracy 0.936541
+('Test accuracy=', '0.836008370')
+('Adv Test accuracy=', '0.194696441')
+step 17, validation accuracy 0.958159
+('Test accuracy=', '0.857641339')
+('Adv Test accuracy=', '0.201674804')
+step 18, validation accuracy 0.956764
+('Test accuracy=', '0.861130476')
+('Adv Test accuracy=', '0.193998605')
+step 19, validation accuracy 0.950488
+('Test accuracy=', '0.858339131')
+('Adv Test accuracy=', '0.187020242')
+step 20, validation accuracy 0.956764
+('Test accuracy=', '0.876482904')
+('Adv Test accuracy=', '0.197487786')
+ step 21, validation accuracy 0.969317
+('Test accuracy=', '0.876482904')
+('Adv Test accuracy=', '0.180041865')
+step 22, validation accuracy 0.95537
+('Test accuracy=', '0.886252642')
+('Adv Test accuracy=', '0.182833210')
+step 23, validation accuracy 0.958856
+('Test accuracy=', '0.895324469')
+('Adv Test accuracy=', '0.198883459')
+step 24, validation accuracy 0.970711
+('Test accuracy=', '0.902302861')
+('Adv Test accuracy=', '0.173063502')
+step 25, validation accuracy 0.979777
+('Test accuracy=', '0.911374748')
+('Adv Test accuracy=', '0.198883459')
+step 26, validation accuracy 0.978382
+('Test accuracy=', '0.911374748')
+('Adv Test accuracy=', '0.185624570')
+step 27, validation accuracy 0.976987
+('Test accuracy=', '0.909979045')
+('Adv Test accuracy=', '0.196092114')
+step 28, validation accuracy 0.962343
+('Test accuracy=', '0.914166093')
+('Adv Test accuracy=', '0.166782975')
+step 29, validation accuracy 0.975593
+('Test accuracy=', '0.919050932')
+('Adv Test accuracy=', '0.200976968')
+step 30, validation accuracy 0.970711
+('Test accuracy=', '0.915561736')
+('Adv Test accuracy=', '0.166085139')
+step 31, validation accuracy 0.981869
+('Test accuracy=', '0.926029325')
+('Adv Test accuracy=', '0.182833210')
+step 32, validation accuracy 0.965132
+('Test accuracy=', '0.930914164')
+('Adv Test accuracy=', '0.182833210')
+step 33, validation accuracy 0.98675
+('Test accuracy=', '0.935101211')
+('Adv Test accuracy=', '0.196092114')
+step 34, validation accuracy 0.97629
+('Test accuracy=', '0.937194705')
+('Adv Test accuracy=', '0.181437537')
+step 35, validation accuracy 0.981869
+('Test accuracy=', '0.930914164')
+('Adv Test accuracy=', '0.184228897')
+step 36, validation accuracy 0.980474
+('Test accuracy=', '0.935799003')
+('Adv Test accuracy=', '0.171667829')
+step 37, validation accuracy 0.983264
+('Test accuracy=', '0.940683901')
+('Adv Test accuracy=', '0.201674804')
+step 38, validation accuracy 0.982566
+('Test accuracy=', '0.933007658')
+('Adv Test accuracy=', '0.160502449')
+step 39, validation accuracy 0.979079
+('Test accuracy=', '0.937892556')
+('Adv Test accuracy=', '0.186322406')
+step 40, validation accuracy 0.984658
+('Test accuracy=', '0.940683901')
+('Adv Test accuracy=', '0.180041865')
+step 41, validation accuracy 0.979777
+('Test accuracy=', '0.946266592')
+('Adv Test accuracy=', '0.165387303')
+step 42, validation accuracy 0.98675
+('Test accuracy=', '0.928122818')
+('Adv Test accuracy=', '0.196092114')
+step 43, validation accuracy 0.97629
+('Test accuracy=', '0.941381693')
+('Adv Test accuracy=', '0.154221907')
+step 44, validation accuracy 0.983961
+('Test accuracy=', '0.944870889')
+('Adv Test accuracy=', '0.206559658')
+step 45, validation accuracy 0.983961
+('Test accuracy=', '0.939986050')
+('Adv Test accuracy=', '0.166782975')
+step 46, validation accuracy 0.987448
+('Test accuracy=', '0.944173038')
+('Adv Test accuracy=', '0.183531061')
+step 47, validation accuracy 0.984658
+('Test accuracy=', '0.944173038')
+('Adv Test accuracy=', '0.196092114')
+step 48, validation accuracy 0.987448
+('Test accuracy=', '0.950453579')
+('Adv Test accuracy=', '0.198185623')
+step 49, validation accuracy 0.984658
+('Test accuracy=', '0.949755728')
+('Adv Test accuracy=', '0.189811587')
+step 50, validation accuracy 0.981869
+('Test accuracy=', '0.953244925')
+('Adv Test accuracy=', '0.198883459')
+step 51, validation accuracy 0.984658
+('Test accuracy=', '0.943475246')
+('Adv Test accuracy=', '0.174459174')
+step 52, validation accuracy 0.982566
+('Test accuracy=', '0.948360085')
+('Adv Test accuracy=', '0.215631545')
+step 53, validation accuracy 0.983961
+('Test accuracy=', '0.952547133')
+('Adv Test accuracy=', '0.186322406')
+step 54, validation accuracy 0.979079
+('Test accuracy=', '0.921842277')
+('Adv Test accuracy=', '0.193998605')
+step 55, validation accuracy 0.988145
+('Test accuracy=', '0.948360085')
+('Adv Test accuracy=', '0.212840199')
+step 56, validation accuracy 0.983961
+('Test accuracy=', '0.944173038')
+('Adv Test accuracy=', '0.218422890')
+step 57, validation accuracy 0.988842
+('Test accuracy=', '0.955338478')
+('Adv Test accuracy=', '0.191207260')
+step 58, validation accuracy 0.990934
+('Test accuracy=', '0.950453579')
+('Adv Test accuracy=', '0.207955346')
+step 59, validation accuracy 0.986053
+('Test accuracy=', '0.949755728')
+('Adv Test accuracy=', '0.177948356')
+step 60, validation accuracy 0.986053
+('Test accuracy=', '0.936496854')
+('Adv Test accuracy=', '0.180041865')
+step 61, validation accuracy 0.988145
+('Test accuracy=', '0.946964383')
+('Adv Test accuracy=', '0.208653182')
+step 62, validation accuracy 0.987448
+('Test accuracy=', '0.955338478')
+('Adv Test accuracy=', '0.189113751')
+step 63, validation accuracy 0.98954
+('Test accuracy=', '0.953942776')
+('Adv Test accuracy=', '0.204466149')
+step 64, validation accuracy 0.988842
+('Test accuracy=', '0.947662234')
+('Adv Test accuracy=', '0.217027217')
+step 65, validation accuracy 0.98954
+('Test accuracy=', '0.946266592')
+('Adv Test accuracy=', '0.213538036')
+step 66, validation accuracy 0.990237
+('Test accuracy=', '0.950453579')
+('Adv Test accuracy=', '0.202372640')
+step 67, validation accuracy 0.98954
+('Test accuracy=', '0.947662234')
+('Adv Test accuracy=', '0.200976968')
+step 68, validation accuracy 0.986053
+('Test accuracy=', '0.949755728')
+('Adv Test accuracy=', '0.228192598')
+step 69, validation accuracy 0.987448
+('Test accuracy=', '0.941381693')
+('Adv Test accuracy=', '0.205163985')
+step 70, validation accuracy 0.984658
+('Test accuracy=', '0.938590348')
+('Adv Test accuracy=', '0.182833210')
+step 71, validation accuracy 0.98675
+('Test accuracy=', '0.937892556')
+('Adv Test accuracy=', '0.193998605')
+step 72, validation accuracy 0.988842
+('Test accuracy=', '0.942777395')
+('Adv Test accuracy=', '0.210746691')
+step 73, validation accuracy 0.98675
+('Test accuracy=', '0.951151431')
+('Adv Test accuracy=', '0.235170975')
+step 74, validation accuracy 0.98675
+('Test accuracy=', '0.949755728')
+('Adv Test accuracy=', '0.207257494')
+step 75, validation accuracy 0.98954
+('Test accuracy=', '0.950453579')
+('Adv Test accuracy=', '0.213538036')
+step 76, validation accuracy 0.988145
+('Test accuracy=', '0.933705509')
+('Adv Test accuracy=', '0.200279132')
+step 77, validation accuracy 0.990237
+('Test accuracy=', '0.942777395')
+('Adv Test accuracy=', '0.221912071')
+step 78, validation accuracy 0.990934
+('Test accuracy=', '0.956734121')
+('Adv Test accuracy=', '0.201674804')
+step 79, validation accuracy 0.983961
+('Test accuracy=', '0.942777395')
+('Adv Test accuracy=', '0.238660157')
+step 80, validation accuracy 0.991632
+('Test accuracy=', '0.944870889')
+('Adv Test accuracy=', '0.214235872')
+step 81, validation accuracy 0.98954
+('Test accuracy=', '0.950453579')
+('Adv Test accuracy=', '0.236566648')
+step 82, validation accuracy 0.990237
+('Test accuracy=', '0.947662234')
+('Adv Test accuracy=', '0.228192598')
+step 83, validation accuracy 0.988145
+('Test accuracy=', '0.952547133')
+('Adv Test accuracy=', '0.172365665')
+step 84, validation accuracy 0.988842
+('Test accuracy=', '0.944870889')
+('Adv Test accuracy=', '0.204466149')
+step 85, validation accuracy 0.990237
+('Test accuracy=', '0.947662234')
+('Adv Test accuracy=', '0.202372640')
+step 86, validation accuracy 0.990934
+('Test accuracy=', '0.948360085')
+('Adv Test accuracy=', '0.241451502')
+step 87, validation accuracy 0.993026
+('Test accuracy=', '0.943475246')
+('Adv Test accuracy=', '0.179344028')
+step 88, validation accuracy 0.98675
+('Test accuracy=', '0.941381693')
+('Adv Test accuracy=', '0.205163985')
+step 89, validation accuracy 0.990237
+('Test accuracy=', '0.948360085')
+('Adv Test accuracy=', '0.247034192')
+step 90, validation accuracy 0.98954
+('Test accuracy=', '0.945568740')
+('Adv Test accuracy=', '0.212840199')
+step 91, validation accuracy 0.988842
+('Test accuracy=', '0.948360085')
+('Adv Test accuracy=', '0.230286106')
+step 92, validation accuracy 0.983264
+('Test accuracy=', '0.949057937')
+('Adv Test accuracy=', '0.163293794')
+step 93, validation accuracy 0.983961
+('Test accuracy=', '0.951151431')
+('Adv Test accuracy=', '0.245638520')
+step 94, validation accuracy 0.98954
+('Test accuracy=', '0.946964383')
+('Adv Test accuracy=', '0.175157011')
+step 95, validation accuracy 0.988145
+('Test accuracy=', '0.941381693')
+('Adv Test accuracy=', '0.217027217')
+step 96, validation accuracy 0.981172
+('Test accuracy=', '0.943475246')
+('Adv Test accuracy=', '0.220516399')
+step 97, validation accuracy 0.988842
+('Test accuracy=', '0.945568740')
+('Adv Test accuracy=', '0.245638520')
+step 98, validation accuracy 0.990237
+('Test accuracy=', '0.951151431')
+('Adv Test accuracy=', '0.197487786')
+step 99, validation accuracy 0.98954
+('Test accuracy=', '0.942777395')
+('Adv Test accuracy=', '0.178646192')
+
