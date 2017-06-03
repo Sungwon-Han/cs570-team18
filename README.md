@@ -20,23 +20,27 @@ File Usage
 
    Training CNN
 
+
 ## new_auto_cnn.py
 > made by S & Y
 
-   Test Auto encoder + CNN model: DA CNN or AGDA CNN
-    
-    
+   Test Denoising Auto encoder + CNN model
+   
+## agda_test.py
+> made by S & Y
 
-## cnn_Adverserial.py
-> made by YongsuBaek
+   Test Additive Gaussian Denoising Auto encoder + CNN model
+    
+In test codes, the lines below will generate Adversarial Example
 
-A few lines for generating and testing Adverserial inputs added to __convnet.py__.  
 ```{.python}
-    from cleverhans.attacks_tf import fgm
-    # Adverserial input generating
-    adv_x = fgm(X, Y_conv, y=None, eps=Adv_eps, ord=np.inf, clip_min=None, clip_max=None)
-    Ad_Y_conv = cnn(adv_x, keep_prob, 2, 2, 10, 20, 50, 25) # output of them
+from cleverhans.attacks_tf import fgm
+# Adverserial input generating
+adv_x = fgm(X, Y_conv, y=None, eps=Adv_eps, ord=np.inf, clip_min=None, clip_max=None)
+Ad_Y_conv = cnn(adv_x, keep_prob, 2, 2, 10, 20, 50, 25) # output of them
 ```
+
+
 ## draw.py
 > made by Yongsu Baek
 ### * case1 : import
