@@ -1,6 +1,11 @@
 # cs570-finalproject
-cs570 finalproject
-
+This project is the work of cs570 finalproject team 18.
+#### Team member
+  * Chonghyuk Song
+  * Donghyun Ahn
+  * Hyunsuk Shin
+  * Sungwon Han
+  * Yongsu Baek
 
 # Progress
 
@@ -29,7 +34,8 @@ File Usage
 
 
 ## new_auto_cnn.py
-> made by S & Y
+> made by S & Y 
+> will be removed in future
 
    Test Denoising Auto encoder + CNN model
     
