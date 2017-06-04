@@ -25,18 +25,26 @@ File Usage
 > made by S & Y
 
    Test Denoising Auto encoder + CNN model
-   
+    
+    
+## da_test.py
+> made by S & Y
+
+   Test Denoising Auto encoder + CNN model
+    
+ 
 ## agda_test.py
 > made by S & Y
 
    Test Additive Gaussian Denoising Auto encoder + CNN model
     
-In test codes, the lines below will generate Adversarial Example
+__In test codes, the lines below will generate Adversarial Example__
 
 ```{.python}
 from cleverhans.attacks_tf import fgm
 # Adverserial input generating
-adv_x = fgm(X, Y_conv, y=None, eps=Adv_eps, ord=np.inf, clip_min=None, clip_max=None)
+# X : input for NN, Y : output of NN
+adv_x = fgm(X, Y, y=None, eps=Adv_eps, ord=np.inf, clip_min=None, clip_max=None)
 Ad_Y_conv = cnn(adv_x, keep_prob, 2, 2, 10, 20, 50, 25) # output of them
 ```
 
