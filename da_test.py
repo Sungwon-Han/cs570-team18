@@ -316,7 +316,7 @@ for epoch in range(training_epochs):
         Ad_c= sess.run(accuracy, feed_dict={X: Ad_X_test, Y_: Ad_X_test_y, size:len(Ad_X_test), keep_prob:1.0})
 
     	print("Test accuracy=", "{:.9f}".format(c))
-	print("Adv Test accuracy=", "{:.9f}".format(Adc))
+	print("Adv Test accuracy=", "{:.9f}".format(Ad_c))
 print(sess.run(Ad_conf_mat, feed_dict={X: Ad_X_test, Y_: Ad_X_test_y, size:len(Ad_X_test), keep_prob:1.0} ))
 
 

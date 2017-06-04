@@ -88,12 +88,27 @@ for i in range(n_samples):
     X_test[i,:] = np.loadtxt(filename)
     X_test_y[i, int(tempname.split("_")[0]) - 1] = 1
 
-#preprocessor = prep.StandardScaler().fit(X_test)
-#X_test = preprocessor.transform(X_test)
+Ad_path = './result_new'
+#Ad_f = open("test_index.txt", 'r')
+#Ad_sample_list = Ad_f.readlines()
+#Ad_sample_list = [ _.rstrip() for _ in Ad_sample_list ]
 
+# Adv test data
+Ad_X_test = np.zeros([n_samples, n_inputs])    # initialization of training data array
+Ad_X_test_y = np.zeros([n_samples, 5])
+
+for i in range(n_samples):
+    tempname = sample_list[i]
+    filename = Ad_path + '/' + tempname
+    Ad_X_test[i,:] = np.loadtxt(filename)
+    Ad_X_test_y[i, int(tempname.split("_")[0]) - 1] = 1    
+
+# Parameters
+#-------------------------------------------------------------------------
 Scale = 0.01
 batch_size = 128
 alpha = 4e-4
+training_epochs = 140
 
 # Network Parameters
 n_hidden_1 = 1000 # 1st layer num features
@@ -236,7 +251,7 @@ def _safe_div(numerator, denominator, name="value"):
 scal_x = _safe_div((decoder_op - mean), tf.tile(std, [size, 1]))
 Y_conv = cnn(scal_x, keep_prob, 2, 2, 10, 20, 50, 25)
 
-# Adversarial input 
+# Adversarial input Test data
 mean, var = tf.nn.moments(X, axes = [0], keep_dims = True)
 std = tf.sqrt(var)
 X_stdscale = _safe_div((X - mean), tf.tile(std, [size, 1]))
@@ -254,20 +269,20 @@ std_adv = tf.sqrt(var_adv)
 scal_x_adv = _safe_div((decoder_adv - mean_adv), tf.tile(std_adv, [size, 1]))
 Y_adv = cnn(scal_x_adv, keep_prob, 2, 2, 10, 20, 50, 25)
 
-#Train
+# Train
 cross_entropy = -tf.reduce_sum(Y_*tf.log(Y_conv))
 train_step = tf.train.AdamOptimizer(alpha).minimize(cross_entropy)
 
+# Accuracy
 correct_prediction = tf.equal(tf.argmax(Y_conv, 1), tf.argmax(Y_, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
-
+# Adv Accuracy
 Ad_correct_prediction = tf.equal(tf.argmax(Y_adv, 1), tf.argmax(Y_, 1))
 Ad_accuracy = tf.reduce_mean(tf.cast(Ad_correct_prediction, tf.float32))
 
 Ad_conf_mat = tf.contrib.metrics.confusion_matrix( tf.argmax(Y_, axis=1), tf.argmax(Y_adv, axis=1) )
 
-training_epochs = 140
 
 
 # Initializing the variables
@@ -297,10 +312,12 @@ for epoch in range(training_epochs):
 	valid_accuracy = sess.run(accuracy, feed_dict = {X:X_validation, Y_:X_valid_y, size:len(X_validation), keep_prob:1.0})
 	print("step %d, validation accuracy %g" %(epoch, valid_accuracy))
 
-        c, Adc= sess.run([accuracy, Ad_accuracy], feed_dict={X: X_test, Y_: X_test_y, size:len(X_test), keep_prob:1.0})
+        c= sess.run(accuracy, feed_dict={X: X_test, Y_: X_test_y, size:len(X_test), keep_prob:1.0})
+        Ad_c= sess.run(accuracy, feed_dict={X: Ad_X_test, Y_: Ad_X_test_y, size:len(Ad_X_test), keep_prob:1.0})
+
     	print("Test accuracy=", "{:.9f}".format(c))
-	print("Adv Test accuracy=", "{:.9f}".format(Adc))
-print(sess.run(Ad_conf_mat, feed_dict={X: X_test, Y_: X_test_y, size:len(X_test), keep_prob:1.0} ))
+	print("Adv Test accuracy=", "{:.9f}".format(Ad_c))
+print(sess.run(Ad_conf_mat, feed_dict={X: Ad_X_test, Y_: Ad_X_test_y, size:len(Ad_X_test), keep_prob:1.0} ))
 
 
 
