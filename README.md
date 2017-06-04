@@ -11,6 +11,13 @@ cs570 finalproject
 5. <del> Generate Adverserial example for CNN </del>
 6. <del> Test Auto + CNN model for Adverserial example </del>
 
+Requirements
+============
+  * Python >=2.7 or >=3.5
+  * numpy
+  * tensorflow
+  * cleverhans
+  * matplotlib(only for draw.py)
 
 
 File Usage
