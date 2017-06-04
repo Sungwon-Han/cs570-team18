@@ -57,8 +57,8 @@ __In test codes, the lines below will generate Adversarial Example__
 from cleverhans.attacks_tf import fgm
 # Adverserial input generating
 # X : input for NN, Y : output of NN
-adv_x = fgm(X, Y, y=None, eps=Adv_eps, ord=np.inf, clip_min=None, clip_max=None)
-Ad_Y_conv = cnn(adv_x, keep_prob, 2, 2, 10, 20, 50, 25) # output of them
+adv_x = fgm(X, Y, y=None, eps=0.01, ord=np.inf, clip_min=None, clip_max=None)
+Ad_Y = cnn(adv_x, keep_prob, 2, 2, 10, 20, 50, 25) # output of adversarial example for given cnn model
 ```
 
 
