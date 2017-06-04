@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
 def draw(img_array, filename):
-        mpimg.imsave(filename, np.concatenate( [img_array.reshape([-1,1])] *12, axis=1).reshape([366,360]) )
+        mpimg.imsave(filename, np.concatenate( [img_array.reshape([-1,1])] *8, axis=1).reshape([267,248]) )
 
 def main():
     if len(sys.argv)>=1:
@@ -15,7 +15,7 @@ def main():
     #f = f.reshape( [ 366, 30, 1 ] )
     #img = np.concatenate( [ f, f, f], axis=2 )
     img = np.concatenate( [f]*12, axis=1 )
-    img = img.reshape([366,30*12])
+    img = img.reshape([267,31*8])
     if len(sys.argv)>=2:
         mpimg.imsave(destpath , img)
     else:
