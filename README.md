@@ -1,4 +1,4 @@
-# cs570-finalproject
+# CS570-finalproject
 This project is the work of cs570 finalproject team 18.
 #### Team member
   * Chonghyuk Song
@@ -66,9 +66,9 @@ Ad_Y_conv = cnn(adv_x, keep_prob, 2, 2, 10, 20, 50, 25) # output of them
 > made by Yongsu Baek
 ### * case1 : import
 
-  it contains the function
+it contains the function
 
-      draw(img_array, filename)
+    draw(img_array, filename)
 
 input
  1. img_array : (8277,) array of image
